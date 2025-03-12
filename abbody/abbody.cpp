@@ -8,33 +8,37 @@ int getRandomNumber(int from, int to) {
 	return random;
 }
 
-void fillRandoms(int arr[3][3], int rows, int columns) {
+void fillArray(int arr[3][3], int rows, int columns) {
+	int num = 1;
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
-			arr[i][j] = getRandomNumber(1, 100);
+			arr[i][j] = num++;
 		}
 	}
 }
 
-int getSumOfRow(int arr[3][3], int rows, int columns) {
+int getSumOfColumn(int arr[3][3], int rows, int columns) {
 	int sum = 0;
-	for (int i = 0; i < columns; i++) {
-		sum += arr[rows][i];
+
+	for (short i = 0; i < rows; i++) {
+		sum += arr[i][columns];
 	}
+
 	return sum;
 }
 
-void getSumOfEachRow(int arr[3][3], int rows, int columns) {
-	cout << "\n\nThe following are the sum of each row:\n";
+void getSumOfEachColumn(int arr[3][3], int arr2[3], int rows, int columns) {
+	cout << "\n\nHere is sum of each column in the array:\n";
 
-	for (int i = 0; i < rows; i++) {
-		printf("\nThe sum of Row %d is %d", i + 1, getSumOfRow(arr, i, columns));
+	for (short i = 0; i < columns; i++) {
+		arr2[i] = getSumOfColumn(arr, 3, i);
+		printf("\nSum of column %d is %d", i + 1,arr2[i]);
 	}
 
-	
 }
 
-void printArray(int arr[3][3], int rows, int columns) {
+
+void print2dArray(int arr[3][3], int rows, int columns) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
 			cout << setw(3) << arr[i][j] << " ";
@@ -43,14 +47,25 @@ void printArray(int arr[3][3], int rows, int columns) {
 	}
 }
 
+void print1dArray(int arr[3], int size) {
+	for (short i = 0; i < size; i++) {
+		cout << setw(3) << arr[i] << "  ";
+	}
+}
+
 int main() {
 	srand((unsigned)time(NULL));
 
 	int arr[3][3], sum[3];
 
-	fillRandoms(arr,3,3);
-	printArray(arr,3,3);
-	getSumOfEachRow(arr,3,3);
-
-    return 0;
+	fillArray(arr, 3, 3);
+	
+	cout << "\n2D Array:\n";
+	print2dArray(arr, 3, 3);
+	getSumOfEachColumn(arr, sum,3, 3);
+	cout << "\n\n1D Array:\n";
+	print1dArray(sum, 3);
+	cout << endl;
+	cout << endl;
+	return 0;
 }
